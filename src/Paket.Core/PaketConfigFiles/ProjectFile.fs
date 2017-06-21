@@ -1000,8 +1000,21 @@ module ProjectFile =
                 match getTargetFrameworkIdentifier project with
                 | None -> "net"
                 | Some x -> x
-            let framework = getProperty "TargetFrameworkVersion" project
+            let framework =
+                match getProperty "TargetFrameworkVersion" project with
+                | None -> getProperty "TargetFramework" project
+                | Some x -> Some(x)
             let defaultResult = SinglePlatform (DotNetFramework FrameworkVersion.V4)
+            let multipleFramework = 
+                match getProperty "TargetFrameworks" project with
+                | Some x -> x 
+                            |>  String.split [|';'|] 
+                            |> Array.map FrameworkDetection.Extract 
+                            |> Array.filter (fun a -> a.IsSome)
+                            |> Array.map (fun a -> a.Value)
+                            |> Array.toList
+                            |> MultiplePlatform 
+                | _ -> defaultResult
             match framework with
             | None -> defaultResult
             | Some s ->
@@ -1468,7 +1481,7 @@ module ProjectFile =
 
             { NugetPackage.Id = node |> getAttribute "Include" |> Option.get
               VersionRange = versionRange
-              TargetFramework = None })
+              TargetFramework = None }) // TODO fix framework control depending on condition
 
 type ProjectFile with
 

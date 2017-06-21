@@ -800,10 +800,12 @@ type PortableProfileType =
 type TargetProfile =
     | SinglePlatform of FrameworkIdentifier
     | PortableProfile of PortableProfileType
+    | MultiplePlatform of FrameworkIdentifier list
     override this.ToString() =
         match this with
         | SinglePlatform x -> x.ToString()
         | PortableProfile p -> p.FolderName
+        | MultiplePlatform m ->  List.map (fun fw -> fw.ToString()) m |> String.concat ";"
 
 module KnownTargetProfiles =
     let DotNetFrameworkVersions = [
