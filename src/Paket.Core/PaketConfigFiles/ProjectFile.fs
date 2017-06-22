@@ -1003,7 +1003,7 @@ module ProjectFile =
             let framework =
                 match getProperty "TargetFrameworkVersion" project with
                 | None -> getProperty "TargetFramework" project
-                | Some x -> Some(x)
+                | Some x -> Some(prefix + x.Replace("v",""))
             let defaultResult = SinglePlatform (DotNetFramework FrameworkVersion.V4)
             let multipleFramework = 
                 match getProperty "TargetFrameworks" project with
@@ -1018,7 +1018,7 @@ module ProjectFile =
             match framework with
             | None -> defaultResult
             | Some s ->
-                match FrameworkDetection.Extract(prefix + s.Replace("v","")) with
+                match FrameworkDetection.Extract(s) with
                 | None -> defaultResult
                 | Some x -> SinglePlatform x
 

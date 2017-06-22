@@ -216,6 +216,12 @@
     <None Include="ProjectFile\TestData\EmptyVbGuid.vbprojtest">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="ProjectFile\TestData\NetStandardWithTargetFramework.csprojtest">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ProjectFile\TestData\NetStandardWithTargetFrameworks.csprojtest">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="ProjectFile\TestData\Project1.fsprojtest">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
