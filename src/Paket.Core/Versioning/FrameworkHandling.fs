@@ -1275,6 +1275,8 @@ type TargetProfile with
         match p with
         | SinglePlatform fw -> [fw]
         | PortableProfile p -> p.Frameworks
+        | MultiplePlatform fws -> fws
+
     static member FindPortable (fws: _ list) = SupportCalculation.findPortable fws
     
     member inline x.PlatformsSupporting = SupportCalculation.getPlatformsSupporting x
