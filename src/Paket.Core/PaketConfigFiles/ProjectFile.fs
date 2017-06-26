@@ -1016,7 +1016,7 @@ module ProjectFile =
                             |> MultiplePlatform 
                 | _ -> defaultResult
             match framework with
-            | None -> defaultResult
+            | None -> multipleFramework
             | Some s ->
                 match FrameworkDetection.Extract(s) with
                 | None -> defaultResult

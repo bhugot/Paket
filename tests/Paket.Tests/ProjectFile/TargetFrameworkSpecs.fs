@@ -33,6 +33,10 @@ let TestData: obj[][] =
             (SinglePlatform(DotNetStandard DotNetStandardVersion.V1_4));
             "netstandard1.4";
             (DotNetStandard DotNetStandardVersion.V1_4)|];    
+        [|"NetStandardWithTargetFrameworks.csprojtest";
+            (MultiplePlatform([(DotNetStandard DotNetStandardVersion.V1_4); (DotNetFramework FrameworkVersion.V4_5_1)]));
+            "netstandard1.4;net451";
+            (DotNetStandard DotNetStandardVersion.V1_4)|];    
     |]
     
 [<Test>]
