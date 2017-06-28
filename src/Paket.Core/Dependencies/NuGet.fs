@@ -102,6 +102,9 @@ let GetLibFiles(targetFolder) =
     refs
     |> Array.append libs
     |> Array.append runtimeLibs
+    |> Array.filter (fun p ->
+        let ext = System.IO.Path.GetExtension p.FullPath
+        ".dll".Equals(ext, StringComparison.OrdinalIgnoreCase))
 
 /// Finds all targets files in a nuget package.
 let GetTargetsFiles(targetFolder, (pkg : PackageName)) =
@@ -426,7 +429,7 @@ let GetVersions force alternativeProjectRoot root (sources, packageName:PackageN
                                 | NuGetCache.NuGetResponseGetVersions.SuccessVersionResponse versions ->
                                     add(sprintf " - Request '%s' finished with: [%s]" req.Request.Url (System.String.Join(" ; ", versions)))
                         else
-                            add(sprintf " - Request '%s' is not finished jet" req.Request.Url)
+                            add(sprintf " - Request '%s' is not finished yet" req.Request.Url)
             )
             sb.ToString()
         let getException (trial:GetVersionRequestResult) message =
@@ -449,7 +452,7 @@ let GetVersions force alternativeProjectRoot root (sources, packageName:PackageN
                                 | NuGetCache.NuGetResponseGetVersions.SuccessVersionResponse versions ->
                                     Exception(sprintf "Request '%s' finished with: [%s]" req.Request.Url (System.String.Join(" ; ", versions)))
                         else
-                            Exception(sprintf "Request '%s' is not finished jet" req.Request.Url))
+                            Exception(sprintf "Request '%s' is not finished yet" req.Request.Url))
 
                 match sourceResult.Result with
                 | SourceNoResult ->
